@@ -1,4 +1,4 @@
-FROM node:current-stretch-slim
+FROM node:12.6.0-stretch-slim
 
 COPY . . 
 
