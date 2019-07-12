@@ -11,7 +11,7 @@ variables:
   isDevelopBranch: eq(variables['Build.SourceBranch'], 'refs/heads/developer')
   isReleaseBranch: eq(variables['Build.SourceBranch'], 'refs/heads/release')
   isPullRequest: $[ eq(variables['Build.Reason'], 'PullRequest') ]
-  dockerHubId: kochanowski
+  dockerHubId: maisiedev
   dockerHubImageName: maisie
 
 jobs:
