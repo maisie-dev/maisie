@@ -1,7 +1,10 @@
-FROM node:11.12.0-alpine
+FROM node:12.6.0-stretch-slim
 
-COPY . /app 
-WORKDIR /app 
+COPY . . 
+
+RUN yarn global add create-react-app
+RUN yarn global add react-scripts
+
 RUN yarn install
 
 EXPOSE 3000
