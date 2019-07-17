@@ -1,5 +1,6 @@
 import uuid
 import json
+from hashlib import md5
 
 from flask import jsonify, request
 from flask_restful import Resource, reqparse, fields, abort
@@ -146,6 +147,7 @@ class ModelListAPI(Resource):
         :param git_active_branch: an active branch of the uploaded model
         :param git_commit_hash: hash of the most recent commit
         :param file: contents of the file selected to upload
+        :param checksum: md5 hash computed from the file stored in hexadecimal format
         :param private: whether to mark the model as private
         :returns: a newly uploaded model
         """
@@ -164,6 +166,7 @@ class ModelListAPI(Resource):
         parser.add_argument("git_commit_hash", type=str, default=None)
         parser.add_argument("file", type=FileStorage, location="files", required=True)
         parser.add_argument("private", type=bool, default=False)
+        parser.add_argument("checksum", type=str)
         args = parser.parse_args()
 
         if "file" in args:
@@ -182,6 +185,7 @@ class ModelListAPI(Resource):
                 metrics=args["metrics"],
                 name=args["name"],
                 path=filename,
+                checksum=args["checksum"],
                 dataset_name=args["dataset_name"],
                 dataset_description=args["dataset_description"],
                 git_active_branch=args["git_active_branch"],

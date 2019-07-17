@@ -242,6 +242,7 @@ class Model(db.Model):
     metrics = db.Column(JSONB)
     name = db.Column(db.String(40), default=None)
     path = db.Column(db.Text, default=None)
+    checksum = db.Column(db.String, nullable=False)
     dataset_name = db.Column(db.String(120), default=None)
     dataset_description = db.Column(db.Text, default=None)
     git_active_branch = db.Column(db.String, nullable=True)
@@ -286,6 +287,7 @@ class ModelSchema(ma.Schema):
             "created",
             "updated",
             "_links",
+            "checksum",
         )
         ordered = True
 
@@ -328,6 +330,7 @@ class ModelLesserSchema(ma.Schema):
             "created",
             "updated",
             "_links",
+            "checksum",
         )
         ordered = True
 
