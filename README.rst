@@ -21,9 +21,9 @@ Maisie - ML Models Management System
     :alt: DockerHub Pulls Badge
 
 +------------------------------------------------------------------------------+--------------------------+
-| `Maisie (stable) <https://dev.azure.com/maisie/Maisie/_build>`_              | |AzureMaisie_Badge|      |
+| `Maisie (stable) <https://dev.azure.com/maisie-dev/Maisie/_build>`_              | |AzureMaisie_Badge|      |
 +------------------------------------------------------------------------------+--------------------------+
-| `Maisie (development) <https://dev.azure.com/maisie/Maisie/_build>`_         | |AzureMaisieDev_Badge|   |
+| `Maisie (development) <https://dev.azure.com/maisie-dev/Maisie/_build>`_         | |AzureMaisieDev_Badge|   |
 +------------------------------------------------------------------------------+--------------------------+
 | `Maisie Sphinx Theme <https://github.com/maisie-dev/maisie-sphinx-theme>`_   | |AzureSphinxTheme_Badge| |
 +------------------------------------------------------------------------------+--------------------------+
