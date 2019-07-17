@@ -1,12 +1,11 @@
-FROM node:12.2.0-stretch-slim
+FROM node:12.6.0-stretch-slim
 
-RUN mkdir -p /maisie_node_modules
+COPY . . 
 
-COPY . /app 
-WORKDIR /app 
+RUN yarn global add create-react-app
+RUN yarn global add react-scripts
+
 RUN yarn install
-
-RUN /bin/bash -c mount --bind /maisie_node_modules /app/node_modules
 
 EXPOSE 3000
 CMD [ "yarn" "start" ]
