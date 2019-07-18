@@ -284,10 +284,10 @@ class ModelSchema(ma.Schema):
             "metrics",
             "tags",
             "git",
+            "checksum",
             "created",
             "updated",
             "_links",
-            "checksum",
         )
         ordered = True
 
@@ -327,10 +327,10 @@ class ModelLesserSchema(ma.Schema):
             "dataset",
             "tags",
             "git",
+            "checksum",
             "created",
             "updated",
             "_links",
-            "checksum",
         )
         ordered = True
 

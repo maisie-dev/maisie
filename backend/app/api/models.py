@@ -147,7 +147,7 @@ class ModelListAPI(Resource):
         :param git_active_branch: an active branch of the uploaded model
         :param git_commit_hash: hash of the most recent commit
         :param file: contents of the file selected to upload
-        :param checksum: md5 hash computed from the file stored in hexadecimal format
+        :param checksum: md5 hash computed from the file and stored in hexadecimal format
         :param private: whether to mark the model as private
         :returns: a newly uploaded model
         """

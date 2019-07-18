@@ -105,7 +105,9 @@ def ls(model_id, hyperparameter, parameter, sort):
 @click.option(
     "-id", "--model_id", prompt="Id of model: ", help="Id of model to download"
 )
-@click.option("-p", "--path", default=None, help="Path to the folder")
+@click.option(
+    "-p", "--path", default=None, help="Path to the folder to store downloaded model"
+)
 def download(model_id, path):
     response = Models().download(model_id, path)
     click.echo(response)

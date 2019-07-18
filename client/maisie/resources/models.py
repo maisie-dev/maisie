@@ -101,20 +101,17 @@ class Models(BaseAction):
                 and "name" in request["data"]
                 and "download" in request["data"]["_links"]
             ):
-                download_link = request["data"]["_links"]["download"]
-                download_data = session.get(download_link)
+                source_data = session.get(request["data"]["_links"]["download"])
                 model_name = request["data"]["name"]
-                download_checksum = request["data"]["checksum"]
-        local_checksum = md5(download_data.content).hexdigest()
+                source_checksum = request["data"]["checksum"]
         if path and model_name:
             model_name = os.path.join(path, model_name)
         response = "Checksums differ"
-        if local_checksum and download_checksum and local_checksum == download_checksum:
-            with open(model_name, "wb") as model_file:
-                model_file.write(download_data.content)
-            # with open(model_name, "wb") as model_file:
-            #     for chunk in download_data.iter_content(chunk_size=128):
-            #         model_file.write(chunk)
+        with open(model_name, "wb") as model_file:
+            for chunk in source_data.iter_content(chunk_size=128):
+                model_file.write(chunk)
+        local_checksum = md5(open(model_name, "rb").read()).hexdigest()
+        if local_checksum and source_checksum and local_checksum == source_checksum:
             response = "Model downloaded successfully"
         return response
 
