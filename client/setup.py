@@ -9,7 +9,7 @@ setup(
     long_description=open("README.rst").read(),
     author="Zofia Kochutek, Łukasz Kleczaj, Marek Kochanowski",
     author_email="support@maisie.dev",
-    url="https://github.com/nokia-wroclaw/innovativeproject-ml-models-management",
+    url="https://github.com/maisie-dev/maisie",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

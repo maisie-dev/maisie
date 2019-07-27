@@ -138,7 +138,7 @@ Getting started
 
 .. code-block:: bash
 
-    $ git clone -b develop git@github.com:nokia-wroclaw/innovativeproject-ml-models-management.git
+    $ git clone -b develop git@github.com:maisie-dev/maisie.git
 
 2. Install `pre-commit <https://pre-commit.com/#install>`_
 
@@ -159,7 +159,7 @@ Getting started
 Fixing existing issues
 ----------------------
 
-1. Pick one of the `open issues <https://github.com/nokia-wroclaw/innovativeproject-ml-models-management/issues>`_ or `create a new one <https://github.com/nokia-wroclaw/innovativeproject-ml-models-management/issues/new>`_
+1. Pick one of the `open issues <https://github.com/maisie-dev/maisie/issues>`_ or `create a new one <https://github.com/maisie-dev/maisie/issues/new>`_
 
 2. Create a new branch named ``issue-[number]-[short description]`` derived from the ``develop`` branch, for example
 
