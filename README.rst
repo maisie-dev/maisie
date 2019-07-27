@@ -7,26 +7,31 @@ Maisie - ML Models Management System
 .. |PyPI_Badge| image:: https://img.shields.io/pypi/v/Maisie.svg
     :alt: PyPI Badge
 
-.. |AzureMaisie_Badge| image:: https://img.shields.io/azure-devops/build/kochanowski/fac778c4-12c8-41b8-a407-f91b55cb2b80/Maisie.CI.svg
+.. |AzureMaisie_Badge| image:: https://img.shields.io/azure-devops/build/maisie-dev/7e500d81-c7bf-42fc-87ca-e58e58dad4ee/1/master.svg
+    :alt: Azure DevOps Badge
+
+.. |AzureMaisieDev_Badge| image:: https://img.shields.io/azure-devops/build/maisie-dev/7e500d81-c7bf-42fc-87ca-e58e58dad4ee/1/develop.svg
     :alt: Azure DevOps Badge
 
 .. |AzureSphinxTheme_Badge| image:: 
-    https://img.shields.io/azure-devops/build/kochanowski/fac778c4-12c8-41b8-a407-f91b55cb2b80/MaisieSphinxTheme.CI.svg
+    https://img.shields.io/azure-devops/build/maisie-dev/7e500d81-c7bf-42fc-87ca-e58e58dad4ee/2.svg
     :alt: Azure DevOps Badge
 
-.. |DockerHub_Badge| image:: https://img.shields.io/docker/pulls/kochanowski/maisie.svg
+.. |DockerHub_Badge| image:: https://img.shields.io/docker/pulls/maisiedev/maisie.svg
     :alt: DockerHub Pulls Badge
 
 +------------------------------------------------------------------------------+--------------------------+
-| `Maisie <https://dev.azure.com/kochanowski/Maisie/_build>`_                  | |AzureMaisie_Badge|      |
+| `Maisie (stable) <https://dev.azure.com/maisie-dev/Maisie/_build>`_          | |AzureMaisie_Badge|      |
 +------------------------------------------------------------------------------+--------------------------+
-| `Maisie Sphinx Theme <https://github.com/mkochanowski/maisie-sphinx-theme>`_ | |AzureSphinxTheme_Badge| |
+| `Maisie (development) <https://dev.azure.com/maisie-dev/Maisie/_build>`_     | |AzureMaisieDev_Badge|   |
++------------------------------------------------------------------------------+--------------------------+
+| `Maisie Sphinx Theme <https://github.com/maisie-dev/maisie-sphinx-theme>`_   | |AzureSphinxTheme_Badge| |
 +------------------------------------------------------------------------------+--------------------------+
 | `Documentation <https://docs.maisie.dev>`_                                   | |RTFD_BADGE|             |
 +------------------------------------------------------------------------------+--------------------------+
 | `PyPI <https://pypi.org/project/Maisie/>`_                                   | |PyPI_Badge|             |  
 +------------------------------------------------------------------------------+--------------------------+
-| `DockerHub <https://hub.docker.com/r/kochanowski/maisie>`_                   | |DockerHub_Badge|        |
+| `DockerHub <https://hub.docker.com/r/maisiedev/maisie>`_                     | |DockerHub_Badge|        |
 +------------------------------------------------------------------------------+--------------------------+
 
 .. contents:: \

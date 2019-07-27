@@ -7,11 +7,12 @@ variables:
   latestBackendGitRevision: HEAD~1
   latestFrontendGitRevision: HEAD~1
   latestClientGitRevision: HEAD~1
-  isMasterBranch: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  isDevelopBranch: eq(variables['Build.SourceBranch'], 'refs/heads/developer')
-  isReleaseBranch: eq(variables['Build.SourceBranch'], 'refs/heads/release')
+  isMasterBranch: $[ eq(variables['Build.SourceBranch'], 'refs/heads/master') ]
+  isDevelopBranch: $[ eq(variables['Build.SourceBranch'], 'refs/heads/developer') ]
+  isReleaseBranch: $[ eq(variables['Build.SourceBranch'], 'refs/heads/release') ]
   isPullRequest: $[ eq(variables['Build.Reason'], 'PullRequest') ]
-  dockerHubId: kochanowski
+  dockerHubId: unversionme
+  dockerHubOrganization: maisiedev
   dockerHubImageName: maisie
 
 jobs:
@@ -202,15 +203,15 @@ jobs:
   - script: |
       echo "Building backend image version $(maisieVersion)"
       docker login -u $(dockerHubId) -p $password 
-      docker build -t $(dockerHubId)/$(dockerHubImageName):backend -t $(dockerHubId)/$(dockerHubImageName):backend-$(maisieVersion) -f Dockerfile.production .
+      docker build -t $(dockerHubOrganization)/$(dockerHubImageName):backend -t $(dockerHubOrganization)/$(dockerHubImageName):backend-$(maisieVersion) -f Dockerfile.production .
     env:
       password: $(dockerHubPassword)
     displayName: Build new image
     workingDirectory: $(workingDirectory)
       
   - script: |
-      docker push $(dockerHubId)/$(dockerHubImageName):backend
-      docker push $(dockerHubId)/$(dockerHubImageName):backend-$(maisieVersion) && curl -s https://unversion.me/listener/$(unvmeBackendListener)/$(maisieVersion)/
+      docker push $(dockerHubOrganization)/$(dockerHubImageName):backend
+      docker push $(dockerHubOrganization)/$(dockerHubImageName):backend-$(maisieVersion) && curl -s https://unversion.me/listener/$(unvmeBackendListener)/$(maisieVersion)/
     displayName: Push built image
     condition: eq(variables['isPullRequest'], 'False')
 
@@ -233,14 +234,14 @@ jobs:
   - script: |
       echo "Building frontend image version $(maisieVersion)"
       docker login -u $(dockerHubId) -p $password 
-      docker build -t $(dockerHubId)/$(dockerHubImageName):frontend -t $(dockerHubId)/$(dockerHubImageName):frontend-$(maisieVersion) -f Dockerfile.production .
+      docker build -t $(dockerHubOrganization)/$(dockerHubImageName):frontend -t $(dockerHubOrganization)/$(dockerHubImageName):frontend-$(maisieVersion) -f Dockerfile.production .
     env:
       password: $(dockerHubPassword)
     displayName: Build new image
     workingDirectory: $(workingDirectory)
 
   - script: |
-      docker push $(dockerHubId)/$(dockerHubImageName):frontend
-      docker push $(dockerHubId)/$(dockerHubImageName):frontend-$(maisieVersion) && curl -s https://unversion.me/listener/$(unvmeFrontendListener)/$(maisieVersion)/
+      docker push $(dockerHubOrganization)/$(dockerHubImageName):frontend
+      docker push $(dockerHubOrganization)/$(dockerHubImageName):frontend-$(maisieVersion) && curl -s https://unversion.me/listener/$(unvmeFrontendListener)/$(maisieVersion)/
     displayName: Push built image
     condition: eq(variables['isPullRequest'], 'False')
