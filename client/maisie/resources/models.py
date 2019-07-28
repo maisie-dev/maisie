@@ -45,8 +45,11 @@ class Models(BaseAction):
         with self.config.session as session:
             files = {}
             try:
-                files["file"] = open(filename, "rb").read()
-                checksum = md5(files["file"]).hexdigest()
+                with open(filename, "rb") as f:
+                    files["file"] = f.read()
+                    checksum = md5(files["file"]).hexdigest()
+                # files["file"] = open(filename, "rb").read()
+                # checksum = md5(files["file"]).hexdigest()
             except FileNotFoundError:
                 logger.error(f"Model `{filename}` could not be found.")
 
@@ -110,7 +113,10 @@ class Models(BaseAction):
         with open(model_name, "wb") as model_file:
             for chunk in source_data.iter_content(chunk_size=128):
                 model_file.write(chunk)
-        local_checksum = md5(open(model_name, "rb").read()).hexdigest()
+        with open(model_name, "rb") as model_file:
+            local_checksum = md5(model_file.read()).hexdigest()
+        # local_checksum = md5(open(model_name, "rb").read()).hexdigest()
+        # model_name.close()
         if local_checksum and source_checksum and local_checksum == source_checksum:
             response = "Model downloaded successfully"
         return response

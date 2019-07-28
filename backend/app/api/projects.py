@@ -90,6 +90,7 @@ class ProjectListAPI(Resource):
         parser.add_argument("name", type=str, required=True, help="No name provided")
         parser.add_argument("description", type=str)
         parser.add_argument("workspace_id", type=int, required=True)
+        parser.add_argument("git_url", type=str)
         args = parser.parse_args()
 
         workspace = Workspace.query.filter_by(id=args["workspace_id"]).first()
@@ -98,6 +99,7 @@ class ProjectListAPI(Resource):
                 name=args["name"],
                 description=args["description"],
                 workspace_id=args["workspace_id"],
+                git_url=args["git_url"],
             )
             db.session.add(project)
             db.session.commit()
