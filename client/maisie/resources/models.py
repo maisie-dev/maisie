@@ -96,6 +96,8 @@ class Models(BaseAction):
         """
         with self.config.session as session:
             request = session.get(f"{self.config.api_url}/models/{id}/")
+            if request.status_code == 404:
+                return "Model with the specified id was not found"
             request = request.json()
             if (
                 ("data") in request
