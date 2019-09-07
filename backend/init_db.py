@@ -169,6 +169,7 @@ def add_random_models(
             git_active_branch="develop",
             git_commit_hash="29ea5f511668248ea7ffe229c0f09992aaa6b382",
             private=False,
+            checksum="248ea5f51248eaa7ffe229c0f248eaaa6b382",
         )
         db.session.add(new_model)
     db.session.commit()
