@@ -10,7 +10,7 @@ from flask_praetorian import auth_required, current_user
 from app import db, models_uploadset
 from app.models import Model, ModelSchema, ModelLesserSchema
 from app.api import paginated_parser
-from app.api.utils import NestedResponse
+from app.api.utils import NestedResponse, str_type
 
 from sqlalchemy.dialects.postgresql import array as postgres_array
 from werkzeug.datastructures import FileStorage
@@ -151,9 +151,14 @@ class ModelListAPI(Resource):
         :param private: whether to mark the model as private
         :returns: a newly uploaded model
         """
+
         parser = reqparse.RequestParser()
-        parser.add_argument("name", type=str)
-        parser.add_argument("dataset_name", type=str)
+        parser.add_argument(
+            "name",
+            type=str_type(max_length=40),
+            help="Name of the model must be at most 40 characters long.",
+        )
+        parser.add_argument("dataset_name", type=str_type(max_length=120))
         parser.add_argument("dataset_description", type=str)
         parser.add_argument("project_id", type=int, required=True)
         # user_id : deprecated

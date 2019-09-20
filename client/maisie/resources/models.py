@@ -42,6 +42,7 @@ class Models(BaseAction):
         parameters = self._determine_input(parameters)
         metrics = self._determine_input(metrics)
 
+        checksum = ""
         with self.config.session as session:
             files = {}
             try:
@@ -72,13 +73,15 @@ class Models(BaseAction):
                 f"{self.config.api_url}/models/", files=files, data=payload
             )
 
-            results = []
-            if "data" in request.json():
-                results.append(request.json()["data"])
-            else:
+            # results = []
+            # if "data" in request.json():
+            #     results.append(request.json()["data"])
+            # else:
+            #     logger.error("Could not upload selected model.")
+            if not "data" in request.json():
                 logger.error("Could not upload selected model.")
 
-            return results
+            return request.json()
 
     def update(self, id: int, data: dict):
         """Update selected model.
