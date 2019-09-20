@@ -26,3 +26,16 @@ class NestedResponse:
             response["pagination"] = self.gather_pagination_info()
 
         return response
+
+
+def str_type(min_length=None, max_length=None):
+    def validate(str_to_check):
+        if len(str_to_check) == 0:
+            raise ValueError(f"String must be at least 1 character long")
+        if min_length and len(str_to_check) < min_length:
+            raise ValueError(f"String must be at least {min_length} characters long")
+        if max_length and len(str_to_check) > max_length:
+            raise ValueError(f"String must be at most {max_length} characters long")
+        return str_to_check
+
+    return validate
