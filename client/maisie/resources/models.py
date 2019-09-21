@@ -5,6 +5,7 @@ import urllib.request
 from typing import Union
 from maisie import BaseAction
 from maisie.utils.git import GitProvider
+from hashlib import md5
 
 import os
 
@@ -41,10 +42,15 @@ class Models(BaseAction):
         parameters = self._determine_input(parameters)
         metrics = self._determine_input(metrics)
 
+        checksum = ""
         with self.config.session as session:
             files = {}
             try:
-                files["file"] = open(filename, "rb")
+                with open(filename, "rb") as f:
+                    files["file"] = f.read()
+                    checksum = md5(files["file"]).hexdigest()
+                # files["file"] = open(filename, "rb").read()
+                # checksum = md5(files["file"]).hexdigest()
             except FileNotFoundError:
                 logger.error(f"Model `{filename}` could not be found.")
 
@@ -59,20 +65,23 @@ class Models(BaseAction):
                 "project_id": self.config.selected_project,
                 "git_active_branch": git.active_branch,
                 "git_commit_hash": git.latest_commit,
+                "dataset_name": dataset_name,
+                "dataset_description": dataset_description,
+                "checksum": checksum,
             }
             request = session.post(
                 f"{self.config.api_url}/models/", files=files, data=payload
             )
 
-            results = []
-            # print(payload)
-            # print(request.text)
-            if "data" in request.json():
-                results.append(request.json()["data"])
-            else:
+            # results = []
+            # if "data" in request.json():
+            #     results.append(request.json()["data"])
+            # else:
+            #     logger.error("Could not upload selected model.")
+            if not "data" in request.json():
                 logger.error("Could not upload selected model.")
 
-            return results
+            return request.json()
 
     def update(self, id: int, data: dict):
         """Update selected model.
@@ -83,27 +92,39 @@ class Models(BaseAction):
         with self.config.session as session:
             pass
 
-    def download(self, id: int):
+    def download(self, id: int, path):
         """Downloads requested model.
 
         :param id: id of the model to download
         """
         with self.config.session as session:
             request = session.get(f"{self.config.api_url}/models/{id}/")
+            if request.status_code == 404:
+                return "Model with the specified id was not found"
             request = request.json()
             if (
                 ("data") in request
+                and "checksum" in request["data"]
                 and "_links" in request["data"]
                 and "name" in request["data"]
                 and "download" in request["data"]["_links"]
             ):
-                download_link = request["data"]["_links"]["download"]
-                download_data = session.get(download_link)
+                source_data = session.get(request["data"]["_links"]["download"])
                 model_name = request["data"]["name"]
-        if path:
+                source_checksum = request["data"]["checksum"]
+        if path and model_name:
             model_name = os.path.join(path, model_name)
+        response = "Checksums differ"
         with open(model_name, "wb") as model_file:
-            model_file.write(download_data.content)
+            for chunk in source_data.iter_content(chunk_size=128):
+                model_file.write(chunk)
+        with open(model_name, "rb") as model_file:
+            local_checksum = md5(model_file.read()).hexdigest()
+        # local_checksum = md5(open(model_name, "rb").read()).hexdigest()
+        # model_name.close()
+        if local_checksum and source_checksum and local_checksum == source_checksum:
+            response = "Model downloaded successfully"
+        return response
 
     def get(self, id: int) -> list:
         """Fetches a single model.
